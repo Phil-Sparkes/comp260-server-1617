@@ -8,3 +8,10 @@ G:\Comp260\1\MUD2\Client\Client\bin\Debug\Client.pdb
 G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
 G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.exe
 G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.pdb
+G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.csprojResolveAssemblyReference.cache
+D:\comp260-server-1617\MUD2\Client\Client\bin\Debug\Client.exe
+D:\comp260-server-1617\MUD2\Client\Client\bin\Debug\Client.pdb
+D:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.csprojResolveAssemblyReference.cache
+D:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
+D:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.exe
+D:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.pdb

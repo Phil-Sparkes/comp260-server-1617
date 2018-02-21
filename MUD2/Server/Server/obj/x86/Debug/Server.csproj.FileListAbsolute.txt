@@ -9,3 +9,9 @@ G:\Comp260\1\MUD2\Server\Server\obj\x86\Debug\Server.csprojResolveAssemblyRefere
 G:\Comp260\1\MUD2\Server\Server\obj\x86\Debug\Server.csproj.CoreCompileInputs.cache
 G:\Comp260\1\MUD2\Server\Server\obj\x86\Debug\Server.exe
 G:\Comp260\1\MUD2\Server\Server\obj\x86\Debug\Server.pdb
+D:\comp260-server-1617\MUD2\Server\Server\bin\Debug\Server.exe
+D:\comp260-server-1617\MUD2\Server\Server\bin\Debug\Server.pdb
+D:\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.csprojResolveAssemblyReference.cache
+D:\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.csproj.CoreCompileInputs.cache
+D:\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.exe
+D:\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.pdb

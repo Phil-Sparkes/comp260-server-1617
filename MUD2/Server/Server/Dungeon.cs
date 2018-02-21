@@ -58,56 +58,56 @@ namespace Server
             currentRoom = roomMap["Room 0"];
         }
 
-        public String Options()
+        public String GiveInfo()
         {
-            String MsgToSend = "";
-            MsgToSend += currentRoom.desc;
-            MsgToSend += "\nExits\n";
+            String info = "";
+            info += currentRoom.desc;
+            info += "\nExits\n";
             for (var i = 0; i < currentRoom.exits.Length; i++)
             {
                 if (currentRoom.exits[i] != null)
                 {
-                    MsgToSend += (Room.exitNames[i] + " ");
+                    info += (Room.exitNames[i] + " ");
                 }
             }
-            return MsgToSend;
+            return info;
 
         }
-        public String Process(string message)
+        public String Process(string Key)
         {
             //var key = Console.ReadLine();
-            var key = message;
-            String MsgToSend = "";
-            var input = key.Split(' ');
+            String returnString = ""; GiveInfo();
+            var input = Key.Split(' ');
 
             switch (input[0].ToLower())
             {
                 case "help":
-                    Console.Clear();
-                    MsgToSend += "\nCommands are ..../n";
-                    MsgToSend += "help - for this screen/n";
-                    MsgToSend += "look - to look around/n";
-                    MsgToSend += "go [north | south | east | west]  - to travel between locations/n";
-                    MsgToSend += "\nPress any key to continue/n";
+                    returnString += GiveInfo();
 
-                    return MsgToSend;
+                    returnString += "\nCommands are ....\n";
+                    returnString += "help - for this screen\n";
+                    returnString += "look - to look around\n";
+                    returnString += "go [north | south | east | west]  - to travel between locations\n";
+                    returnString += "\nPress any key to continue\n";
+                    
+                    return returnString;
 
                 case "look":
                     //loop straight back
                     Console.Clear();
                     Thread.Sleep(1000);
-                    return MsgToSend;
+                    returnString += GiveInfo();
+                    return returnString;
 
                 case "say":
-                    Console.Write("You say ");
+                    returnString += GiveInfo();
+                    returnString += ("\nYou say ");
                     for (var i = 1; i < input.Length; i++)
                     {
-                        Console.Write(input[i] + " ");
+                        returnString += (input[i] + " ");
                     }
 
-                    Thread.Sleep(1000);
-                    Console.Clear();
-                    return MsgToSend;
+                    return returnString;
 
                 case "go":
                     // is arg[1] sensible?
@@ -136,21 +136,22 @@ namespace Server
                                 else
                                 {
                                     //handle error
-                                    MsgToSend += "\nERROR";
-                                    MsgToSend += "\nCan not go " + input[1] + " from here";
-                                    MsgToSend += "\nPress any key to continue";
+                                    returnString += GiveInfo();
+                                    returnString += "\nERROR";
+                                    returnString += "\nCan not go " + input[1] + " from here";
                                 }
                             }
                         }
                     }
-                    return MsgToSend;
+                    returnString += GiveInfo();
+                    return returnString;
 
                 default:
                     //handle error
-                    MsgToSend += "\nERROR";
-                    MsgToSend += "\nCan not " + key;
-                    MsgToSend += "\nPress any key to continue\n";
-                    return MsgToSend;
+                    returnString += GiveInfo();
+                    returnString += "\nERROR";
+                    returnString += "\nCan not " + Key;
+                    return returnString;
             }
 
         }

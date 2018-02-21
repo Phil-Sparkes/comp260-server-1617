@@ -12,21 +12,28 @@ namespace Server
     {
         static void Main(string[] args)
         {
+            ASCIIEncoding encoder = new ASCIIEncoding();
+
+            var dungeon = new Dungeon(); // make the dungeon
+
+            dungeon.Init();
+
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
             IPEndPoint ipLocal = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8221);
-			
+
             s.Bind(ipLocal);
             s.Listen(4);
 
             Console.WriteLine("Waiting for client ...");
 
-            var dungeon = new Dungeon(); // make the dungeon
-            dungeon.Init();
-
-            Console.WriteLine(dungeon.Options());
-
             Socket newConnection = s.Accept();
+            var dungeonResult = (dungeon.GiveInfo());
+            byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
+
+            int bytesSent = newConnection.Send(sendBuffer);
+
+           
             if (newConnection != null)
             {            
                 while (true)
@@ -39,21 +46,25 @@ namespace Server
 
                         if (result > 0)
                         {
-                            ASCIIEncoding encoder = new ASCIIEncoding();
-                            String recdMsg = encoder.GetString(buffer, 0, result);
 
+
+                            String recdMsg = encoder.GetString(buffer, 0, result);
                             Console.WriteLine("Received: " + recdMsg);
 
-                            Console.WriteLine(dungeon.Process(recdMsg));
-                            Console.Clear();
-                            Console.WriteLine(dungeon.Options());
+                            dungeonResult = dungeon.Process(recdMsg);
+                           
+
+                            sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
+
+                            bytesSent = newConnection.Send(sendBuffer);
 
                         }
                     }
                     catch (System.Exception ex)
                     {
                         Console.WriteLine(ex);    	
-                    }                    
+                    }    
+                    
                 }
             }
         }
