@@ -37,13 +37,13 @@ namespace Client
             ASCIIEncoding encoder = new ASCIIEncoding();
             byte[] buffer = new byte[4096];
 
-            int reciever = s.Receive(buffer);
+            //int reciever = s.Receive(buffer);
             //s.Receive(buffer);
-            if (reciever > 0)
-            {
-                String userCmd = encoder.GetString(buffer, 0, reciever);
-                Console.WriteLine(userCmd);
-            }
+            //if (reciever > 0)
+            //{
+            //    String userCmd = encoder.GetString(buffer, 0, reciever);
+            //    Console.WriteLine(userCmd);
+            //}
 
             while (true)
             {
@@ -61,7 +61,7 @@ namespace Client
 
 
                     buffer = new byte[4096];
-                    reciever = s.Receive(buffer);
+                    int reciever = s.Receive(buffer);
                     //s.Receive(buffer);
                     if (reciever > 0)
                     {
