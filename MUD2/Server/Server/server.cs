@@ -33,7 +33,7 @@ namespace Server
         {
             Socket s = obj as Socket;
 
-            int ID = 0;
+            int ID = 1;
 
             while (quit == false)
             {
@@ -50,13 +50,36 @@ namespace Server
                     String clientName = "client" + clientID;
                     clientDictionary.Add(clientName, newClientSocket);
                     Thread.Sleep(500);
-
+                    var player = new Player();
                     clientID++;
                 }
             }
         }
 
-        static void clientReceiveThread(Object obj)
+        static Socket GetSocketFromName(String name)
+        {
+            lock (clientDictionary)
+            {
+                return clientDictionary[name];
+            }
+        } // probbably need this one
+
+        static String GetNameFromSocket(Socket s)
+        {
+            lock (clientDictionary)
+            {
+                foreach (KeyValuePair<String, Socket> o in clientDictionary)
+                {
+                    if (o.Value == s)
+                    {
+                        return o.Key;
+                    }
+                }
+            }
+            return null;
+        }
+
+            static void clientReceiveThread(Object obj)
         {
             ReceiveThreadLaunchInfo receiveInfo = obj as ReceiveThreadLaunchInfo;
             bool socketLost = false;
@@ -111,10 +134,10 @@ namespace Server
             //Socket newConnection = serverClient.Accept();
             var dungeonResult = (dungeon.GiveInfo());
             byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
-
+            byte[] buffer = new byte[4096];
             //int bytesSent = newConnection.Send(sendBuffer);
 
-           
+
             //if (newConnection != null)
             //{            
             //    while (true)
@@ -128,7 +151,7 @@ namespace Server
 
             //            if (result > 0)
             //            {
-                          
+
             //                foreach (KeyValuePair<String, Socket> whatisthis in clientDictionary)    //new
             //                {
             //                    Console.WriteLine(whatisthis);
@@ -138,7 +161,7 @@ namespace Server
             //                Console.WriteLine("Received: " + recdMsg);
 
             //                dungeonResult = dungeon.Process(recdMsg);
-                           
+
 
             //                sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
 
@@ -150,7 +173,7 @@ namespace Server
             //        {
             //            Console.WriteLine(ex);    	
             //        }    
-                    
+
             //    }
             //}
 
@@ -171,15 +194,25 @@ namespace Server
                 if (labelToPrint != "")
                 {
                     Console.WriteLine(labelToPrint);
+
+                    Char delimiter = ':';
+                    String[] substrings = labelToPrint.Split(delimiter);
+
+                    dungeonResult = dungeon.Process(substrings[1]);
+                    Console.WriteLine(dungeonResult);
+
+                    sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
+
+                    int bytesSent = GetSocketFromName("client" + substrings[0]).Send(sendBuffer);
                 }
 
                 Thread.Sleep(1);
 
                 lock (clientDictionary)
                 {
-                    foreach (KeyValuePair<String, Socket> whatisthis in clientDictionary)    //new
+                    foreach (KeyValuePair<String, Socket> test in clientDictionary)    //new
                     {
-                        //Console.WriteLine(whatisthis);
+                        //Console.WriteLine(test);
                     }
                 }
             }
