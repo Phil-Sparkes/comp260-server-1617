@@ -1,0 +1,10 @@
+G:\Comp260\1\Lecture 01\01. c# sockets\Client\Client\bin\Debug\Client.exe
+G:\Comp260\1\Lecture 01\01. c# sockets\Client\Client\bin\Debug\Client.pdb
+G:\Comp260\1\Lecture 01\01. c# sockets\Client\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
+G:\Comp260\1\Lecture 01\01. c# sockets\Client\Client\obj\x86\Debug\Client.exe
+G:\Comp260\1\Lecture 01\01. c# sockets\Client\Client\obj\x86\Debug\Client.pdb
+G:\Comp260\1\MUD2\Client\Client\bin\Debug\Client.exe
+G:\Comp260\1\MUD2\Client\Client\bin\Debug\Client.pdb
+G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
+G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.exe
+G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.pdb

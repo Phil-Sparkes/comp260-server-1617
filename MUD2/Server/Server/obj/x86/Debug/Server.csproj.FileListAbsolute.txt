@@ -1,0 +1,11 @@
+G:\Comp260\1\Lecture 01\01. c# sockets\Server\Server\bin\Debug\Server.exe
+G:\Comp260\1\Lecture 01\01. c# sockets\Server\Server\bin\Debug\Server.pdb
+G:\Comp260\1\Lecture 01\01. c# sockets\Server\Server\obj\x86\Debug\Server.csproj.CoreCompileInputs.cache
+G:\Comp260\1\Lecture 01\01. c# sockets\Server\Server\obj\x86\Debug\Server.exe
+G:\Comp260\1\Lecture 01\01. c# sockets\Server\Server\obj\x86\Debug\Server.pdb
+G:\Comp260\1\MUD2\Server\Server\bin\Debug\Server.exe
+G:\Comp260\1\MUD2\Server\Server\bin\Debug\Server.pdb
+G:\Comp260\1\MUD2\Server\Server\obj\x86\Debug\Server.csprojResolveAssemblyReference.cache
+G:\Comp260\1\MUD2\Server\Server\obj\x86\Debug\Server.csproj.CoreCompileInputs.cache
+G:\Comp260\1\MUD2\Server\Server\obj\x86\Debug\Server.exe
+G:\Comp260\1\MUD2\Server\Server\obj\x86\Debug\Server.pdb
