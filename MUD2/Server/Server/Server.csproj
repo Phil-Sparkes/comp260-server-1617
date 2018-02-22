@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dungeon.cs" />
+    <Compile Include="DungeonMap.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Room.cs" />
     <Compile Include="server.cs" />

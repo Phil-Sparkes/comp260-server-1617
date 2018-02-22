@@ -8,7 +8,7 @@ namespace Server
 {
     public class Dungeon
     {
-        Dictionary<String, Room> roomMap;
+        public Dictionary<String, Room> roomMap;
 
         Room currentRoom;
 
@@ -58,8 +58,9 @@ namespace Server
             currentRoom = roomMap["Room 0"];
         }
 
-        public String GiveInfo()
+        public String GiveInfo(Player player)
         {
+            currentRoom = player.currentRoom;
             String info = "";
             info += currentRoom.desc;
             info += "\nExits\n";
@@ -73,16 +74,17 @@ namespace Server
             return info;
 
         }
-        public String Process(string Key)
+        public String Process(string Key, Player player)
         {
+            currentRoom = player.currentRoom;
             //var key = Console.ReadLine();
-            String returnString = ""; GiveInfo();
+            String returnString = ""; GiveInfo(player);
             var input = Key.Split(' ');
 
             switch (input[0].ToLower())
             {
                 case "help":
-                    returnString += GiveInfo();
+                    returnString += GiveInfo(player);
 
                     returnString += "\nCommands are ....\n";
                     returnString += "help - for this screen\n";
@@ -96,11 +98,11 @@ namespace Server
                     //loop straight back
                     Console.Clear();
                     Thread.Sleep(1000);
-                    returnString += GiveInfo();
+                    returnString += GiveInfo(player);
                     return returnString;
 
                 case "say":
-                    returnString += GiveInfo();
+                    returnString += GiveInfo(player);
                     returnString += ("\nYou say ");
                     for (var i = 1; i < input.Length; i++)
                     {
@@ -113,42 +115,42 @@ namespace Server
                     // is arg[1] sensible?
                     if ((input[1].ToLower() == "north") && (currentRoom.north != null))
                     {
-                        currentRoom = roomMap[currentRoom.north];
+                        player.currentRoom = roomMap[currentRoom.north];
                     }
                     else
                     {
                         if ((input[1].ToLower() == "south") && (currentRoom.south != null))
                         {
-                            currentRoom = roomMap[currentRoom.south];
+                            player.currentRoom = roomMap[currentRoom.south];
                         }
                         else
                         {
                             if ((input[1].ToLower() == "east") && (currentRoom.east != null))
                             {
-                                currentRoom = roomMap[currentRoom.east];
+                                player.currentRoom = roomMap[currentRoom.east];
                             }
                             else
                             {
                                 if ((input[1].ToLower() == "west") && (currentRoom.west != null))
                                 {
-                                    currentRoom = roomMap[currentRoom.west];
+                                    player.currentRoom = roomMap[currentRoom.west];
                                 }
                                 else
                                 {
                                     //handle error
-                                    returnString += GiveInfo();
+                                    returnString += GiveInfo(player);
                                     returnString += "\nERROR";
                                     returnString += "\nCan not go " + input[1] + " from here";
                                 }
                             }
                         }
                     }
-                    returnString += GiveInfo();
+                    returnString += GiveInfo(player);
                     return returnString;
 
                 default:
                     //handle error
-                    returnString += GiveInfo();
+                    returnString += GiveInfo(player);
                     returnString += "\nERROR";
                     returnString += "\nCan not " + Key;
                     return returnString;

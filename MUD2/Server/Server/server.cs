@@ -14,9 +14,12 @@ namespace Server
         static bool quit = false;
         static LinkedList<String> incommingMessages = new LinkedList<string>();
 
+        static List<Player> PlayerList = new List<Player>();
+
         static Dictionary<String, Socket> clientDictionary = new Dictionary<String, Socket>();
         static int clientID = 1;
 
+        static Dungeon dungeon = new Dungeon(); // make the dungeon
         class ReceiveThreadLaunchInfo
         {
             public ReceiveThreadLaunchInfo(int ID, Socket socket)
@@ -49,8 +52,15 @@ namespace Server
                     
                     String clientName = "client" + clientID;
                     clientDictionary.Add(clientName, newClientSocket);
+                    Console.WriteLine("AMHERE");
+                    var player = new Player
+                    {
+                        dungeonRef = dungeon
+                    };
+                    player.Init();
+                    Console.WriteLine("NOWHERE");
+                    PlayerList.Add(player);
                     Thread.Sleep(500);
-                    var player = new Player();
                     clientID++;
                 }
             }
@@ -113,7 +123,7 @@ namespace Server
         {
             ASCIIEncoding encoder = new ASCIIEncoding();
 
-            var dungeon = new Dungeon(); // make the dungeon
+           
 
             dungeon.Init();
 
@@ -132,9 +142,10 @@ namespace Server
             
 
             //Socket newConnection = serverClient.Accept();
-            var dungeonResult = (dungeon.GiveInfo());
-            byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
+            //var dungeonResult = (dungeon.GiveInfo());
+            //byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
             byte[] buffer = new byte[4096];
+
             //int bytesSent = newConnection.Send(sendBuffer);
 
 
@@ -198,10 +209,11 @@ namespace Server
                     Char delimiter = ':';
                     String[] substrings = labelToPrint.Split(delimiter);
 
-                    dungeonResult = dungeon.Process(substrings[1]);
+                    int PlayerID = Int32.Parse(substrings[0]) - 1;
+                    var dungeonResult = dungeon.Process(substrings[1], PlayerList[PlayerID]);
                     Console.WriteLine(dungeonResult);
 
-                    sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
+                    byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
 
                     int bytesSent = GetSocketFromName("client" + substrings[0]).Send(sendBuffer);
                 }
