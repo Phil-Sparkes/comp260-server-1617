@@ -94,7 +94,7 @@ namespace Server
             return null;
         }
 
-        static String chatMessage(string message)
+        static String chatMessage(string message, Player player)
         {
             lock (outgoingMessages)
             {
@@ -215,12 +215,12 @@ namespace Server
                     String UserCmd = substrings[1];
 
                     var dungeonResult = dungeon.Process(UserCmd, PlayerList[PlayerID]);
-                    
+                    Player player = PlayerList[PlayerID];
                     String theClient = "client" + substrings[0];
 
                     if (UserCmd.Substring(0, 3) == "say")
                     {
-                        chatMessage(dungeonResult);
+                        chatMessage(dungeonResult, player);
                     }
                     else
                     {
