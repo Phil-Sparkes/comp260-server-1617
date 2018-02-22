@@ -39,6 +39,13 @@ namespace Client
             }
         }
 
+        public static void ClearLine()
+        {
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, Console.CursorTop - 1);
+        }
+
         static void Main(string[] args)
         {
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -71,9 +78,17 @@ namespace Client
             while (true)
             {
              
-                    //Console.Clear();
-                    String Msg = Console.ReadLine();
                 //Console.Clear();
+                String Msg = Console.ReadLine();
+                if (Msg.Substring(0, 3) != "say")
+                {
+                    Console.Clear();
+                }
+                else
+                {
+                    ClearLine();
+                }
+             
                 ID++;
                 
                 buffer = encoder.GetBytes(Msg);

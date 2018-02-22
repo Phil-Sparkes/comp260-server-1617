@@ -9,7 +9,7 @@ namespace Server
     {
         public Dungeon dungeonRef;
         public Room currentRoom;
-
+        public String playerName;
         public void Init()
         {
             currentRoom = dungeonRef.roomMap["Room 0"];

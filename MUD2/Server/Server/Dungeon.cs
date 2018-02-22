@@ -102,8 +102,10 @@ namespace Server
                     return returnString;
 
                 case "say":
-                    returnString += GiveInfo(player);
-                    returnString += ("\nYou say ");
+                    //returnString += GiveInfo(player);
+                    returnString += ("[");
+                    returnString += (player.playerName);
+                    returnString += ("] ");
                     for (var i = 1; i < input.Length; i++)
                     {
                         returnString += (input[i] + " ");

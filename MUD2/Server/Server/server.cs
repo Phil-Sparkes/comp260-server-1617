@@ -18,7 +18,6 @@ namespace Server
         static List<Player> PlayerList = new List<Player>();
 
         static Dictionary<String, Socket> clientDictionary = new Dictionary<String, Socket>();
-        static int clientID = 1;
 
         static Dungeon dungeon = new Dungeon(); // make the dungeon
         class ReceiveThreadLaunchInfo
@@ -46,21 +45,28 @@ namespace Server
                 var myThread = new Thread(clientReceiveThread);
                 myThread.Start(new ReceiveThreadLaunchInfo(ID, newClientSocket));
 
-                ID++;
 
                 lock (clientDictionary)
                 {
                     
-                    String clientName = "client" + clientID;
+                    String clientName = "client" + ID;
                     clientDictionary.Add(clientName, newClientSocket);
                     var player = new Player
                     {
-                        dungeonRef = dungeon
+                        dungeonRef = dungeon,
+                        playerName = "Player" + ID
                     };
                     player.Init();
                     PlayerList.Add(player);
-                    Thread.Sleep(500);
-                    clientID++;
+
+                    var dungeonResult = dungeon.GiveInfo(player);
+
+                    lock (outgoingMessages)
+                    {
+                        outgoingMessages.AddLast(clientName + ":" + dungeonResult);
+                    }
+                    //Thread.Sleep(500);
+                    ID++;
                 }
             }
         }
@@ -88,7 +94,20 @@ namespace Server
             return null;
         }
 
-            static void clientReceiveThread(Object obj)
+        static String chatMessage(string message)
+        {
+            lock (outgoingMessages)
+            {
+                foreach (KeyValuePair<String, Socket> test in clientDictionary)    //new
+                {
+                    outgoingMessages.AddLast(test.Key + ":" + message);
+                }
+            }
+            Console.WriteLine(message);
+            return null;
+        }
+
+        static void clientReceiveThread(Object obj)
         {
             ReceiveThreadLaunchInfo receiveInfo = obj as ReceiveThreadLaunchInfo;
             bool socketLost = false;
@@ -142,6 +161,38 @@ namespace Server
 
             while (true)
             {
+                String messageToSend = "";
+                lock (outgoingMessages)
+                {
+                    if (outgoingMessages.First != null)
+                    {
+                        messageToSend = outgoingMessages.First.Value;
+
+                        outgoingMessages.RemoveFirst();
+                    }
+                }
+
+                if (messageToSend != "")
+                {
+                    try
+                    {
+                        Console.WriteLine("sending message");
+                        String[] substrings = messageToSend.Split(':');
+
+                        string theClient = substrings[0];
+                        string dungeonResult = substrings[1];
+
+                        byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
+                        int bytesSent = GetSocketFromName(theClient).Send(sendBuffer);
+
+                        bytesSent = GetSocketFromName(theClient).Send(sendBuffer); // DO NOT KNOW WHY I HAVE TO DO THIS TWICE BUT ONLY WAY IT WORKS
+                    }
+                    catch
+                    {
+
+                    }
+                }
+
                 String labelToPrint = "";
                 lock (incommingMessages)
                 {
@@ -153,47 +204,32 @@ namespace Server
 
                     }
                 }
-                String messageToSend = "";
-                lock (outgoingMessages)
-                {
-                    if (outgoingMessages.First != null)
-                    {
-                        messageToSend = outgoingMessages.First.Value;
-
-                        outgoingMessages.RemoveFirst();
-
-                    }
-                }
-
-                if (messageToSend != "")
-                {
-                    Console.WriteLine("sending message");
-                    String[] substrings = messageToSend.Split(':');
-                    string theClient = substrings[0];
-                    string dungeonResult = substrings[1];
-
-                    byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
-                    int bytesSent = GetSocketFromName(theClient).Send(sendBuffer);
-
-                }
 
                     if (labelToPrint != "")
                 {
                     Console.WriteLine(labelToPrint);
 
-
                     String[] substrings = labelToPrint.Split(':');
 
                     int PlayerID = Int32.Parse(substrings[0]) - 1;
-                    var dungeonResult = dungeon.Process(substrings[1], PlayerList[PlayerID]);
+                    String UserCmd = substrings[1];
+
+                    var dungeonResult = dungeon.Process(UserCmd, PlayerList[PlayerID]);
                     
                     String theClient = "client" + substrings[0];
-                    Console.WriteLine(dungeonResult);
 
-                    lock (outgoingMessages)
+                    if (UserCmd.Substring(0, 3) == "say")
                     {
-                        outgoingMessages.AddLast(theClient + ":" + dungeonResult);
+                        chatMessage(dungeonResult);
                     }
+                    else
+                    {
+                        lock (outgoingMessages)
+                        {
+                            outgoingMessages.AddLast(theClient + ":" + dungeonResult);
+                        }
+                    }
+                    
                 }
 
                 Thread.Sleep(1);
