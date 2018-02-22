@@ -11,7 +11,35 @@ namespace Client
 {
     class client
     {
-            static void Main(string[] args)
+        static LinkedList<String> incommingMessages = new LinkedList<string>();
+
+        static void ReceiveMessages(Object obj)
+        {
+            ASCIIEncoding encoder = new ASCIIEncoding();
+            byte[] receiveBuffer = new byte[8192];
+
+            Socket s = obj as Socket;
+
+            while (true)
+            {
+                try
+                {
+                    int reciever = s.Receive(receiveBuffer);
+                    s.Receive(receiveBuffer);
+                    if (reciever > 0)
+                    {
+                        String userCmd = encoder.GetString(receiveBuffer, 0, reciever);
+                        Console.WriteLine(userCmd);
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+        }
+
+        static void Main(string[] args)
         {
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -34,22 +62,18 @@ namespace Client
 
             int ID = 0;
 
+            var myThread = new Thread(ReceiveMessages);
+            myThread.Start(s);
+
             ASCIIEncoding encoder = new ASCIIEncoding();
             byte[] buffer = new byte[4096];
 
-            //int reciever = s.Receive(buffer);
-            //s.Receive(buffer);
-            //if (reciever > 0)
-            //{
-            //    String userCmd = encoder.GetString(buffer, 0, reciever);
-            //    Console.WriteLine(userCmd);
-            //}
-
             while (true)
             {
+             
+                    //Console.Clear();
+                    String Msg = Console.ReadLine();
                 //Console.Clear();
-                String Msg = Console.ReadLine();
-                Console.Clear();
                 ID++;
                 
                 buffer = encoder.GetBytes(Msg);
@@ -60,14 +84,14 @@ namespace Client
                     int bytesSent = s.Send(buffer);
 
 
-                    buffer = new byte[4096];
-                    int reciever = s.Receive(buffer);
+                   // buffer = new byte[4096];
+                    //int receiver = s.Receive(buffer);
                     //s.Receive(buffer);
-                    if (reciever > 0)
-                    {
-                        String userCmd = encoder.GetString(buffer, 0, reciever);
-                        Console.WriteLine(userCmd);
-                    }
+                    //if (receiver > 0)
+                    //{
+                    //    String userCmd = encoder.GetString(buffer, 0, receiver);
+                    //    Console.WriteLine(userCmd);
+                    //}
 
 
                 }

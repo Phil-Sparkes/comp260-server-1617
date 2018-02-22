@@ -13,6 +13,7 @@ namespace Server
     {
         static bool quit = false;
         static LinkedList<String> incommingMessages = new LinkedList<string>();
+        static LinkedList<String> outgoingMessages = new LinkedList<string>();
 
         static List<Player> PlayerList = new List<Player>();
 
@@ -52,13 +53,11 @@ namespace Server
                     
                     String clientName = "client" + clientID;
                     clientDictionary.Add(clientName, newClientSocket);
-                    Console.WriteLine("AMHERE");
                     var player = new Player
                     {
                         dungeonRef = dungeon
                     };
                     player.Init();
-                    Console.WriteLine("NOWHERE");
                     PlayerList.Add(player);
                     Thread.Sleep(500);
                     clientID++;
@@ -72,7 +71,7 @@ namespace Server
             {
                 return clientDictionary[name];
             }
-        } // probbably need this one
+        } 
 
         static String GetNameFromSocket(Socket s)
         {
@@ -123,8 +122,6 @@ namespace Server
         {
             ASCIIEncoding encoder = new ASCIIEncoding();
 
-           
-
             dungeon.Init();
 
             Socket serverClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -139,54 +136,9 @@ namespace Server
             var myThread = new Thread(acceptClientThread);
             myThread.Start(serverClient);
 
-            
-
-            //Socket newConnection = serverClient.Accept();
-            //var dungeonResult = (dungeon.GiveInfo());
-            //byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
+           
             byte[] buffer = new byte[4096];
 
-            //int bytesSent = newConnection.Send(sendBuffer);
-
-
-            //if (newConnection != null)
-            //{            
-            //    while (true)
-            //    {
-
-            //        byte[] buffer = new byte[4096];
-
-            //        try
-            //        {
-            //            int result = newConnection.Receive(buffer);
-
-            //            if (result > 0)
-            //            {
-
-            //                foreach (KeyValuePair<String, Socket> whatisthis in clientDictionary)    //new
-            //                {
-            //                    Console.WriteLine(whatisthis);
-            //                }
-
-            //                String recdMsg = encoder.GetString(buffer, 0, result);
-            //                Console.WriteLine("Received: " + recdMsg);
-
-            //                dungeonResult = dungeon.Process(recdMsg);
-
-
-            //                sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
-
-            //                bytesSent = newConnection.Send(sendBuffer);
-
-            //            }
-            //        }
-            //        catch (System.Exception ex)
-            //        {
-            //            Console.WriteLine(ex);    	
-            //        }    
-
-            //    }
-            //}
 
             while (true)
             {
@@ -201,21 +153,47 @@ namespace Server
 
                     }
                 }
+                String messageToSend = "";
+                lock (outgoingMessages)
+                {
+                    if (outgoingMessages.First != null)
+                    {
+                        messageToSend = outgoingMessages.First.Value;
 
-                if (labelToPrint != "")
+                        outgoingMessages.RemoveFirst();
+
+                    }
+                }
+
+                if (messageToSend != "")
+                {
+                    Console.WriteLine("sending message");
+                    String[] substrings = messageToSend.Split(':');
+                    string theClient = substrings[0];
+                    string dungeonResult = substrings[1];
+
+                    byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
+                    int bytesSent = GetSocketFromName(theClient).Send(sendBuffer);
+
+                }
+
+                    if (labelToPrint != "")
                 {
                     Console.WriteLine(labelToPrint);
 
-                    Char delimiter = ':';
-                    String[] substrings = labelToPrint.Split(delimiter);
+
+                    String[] substrings = labelToPrint.Split(':');
 
                     int PlayerID = Int32.Parse(substrings[0]) - 1;
                     var dungeonResult = dungeon.Process(substrings[1], PlayerList[PlayerID]);
+                    
+                    String theClient = "client" + substrings[0];
                     Console.WriteLine(dungeonResult);
 
-                    byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
-
-                    int bytesSent = GetSocketFromName("client" + substrings[0]).Send(sendBuffer);
+                    lock (outgoingMessages)
+                    {
+                        outgoingMessages.AddLast(theClient + ":" + dungeonResult);
+                    }
                 }
 
                 Thread.Sleep(1);
@@ -224,7 +202,10 @@ namespace Server
                 {
                     foreach (KeyValuePair<String, Socket> test in clientDictionary)    //new
                     {
-                        //Console.WriteLine(test);
+                        // Console.WriteLine(test.Value);
+                        //byte[] sendbuffer = encoder.getbytes("test"); // this is sending back to client
+
+                        //int bytessent = test.value.send(sendbuffer);
                     }
                 }
             }
