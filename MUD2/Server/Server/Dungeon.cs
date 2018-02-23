@@ -91,6 +91,7 @@ namespace Server
                     returnString += "look - to look around\n";
                     returnString += "say - local chat\n";
                     returnString += "global - global chat\n";
+                    returnString += "name - change name\n";
                     returnString += "go [north | south | east | west]  - to travel between locations\n";
                     returnString += "\nPress any key to continue\n";
                     
@@ -122,6 +123,15 @@ namespace Server
                         returnString += (input[i] + " ");
                     }
 
+                    return returnString;
+
+                case "name":
+                    returnString += ("[SERVER][");
+                    returnString += (player.playerName);
+                    returnString += ("] has changed their name to [");
+                    returnString += (input[1]);
+                    returnString += ("] ");
+                    player.playerName = input[1];
                     return returnString;
 
                 case "go":

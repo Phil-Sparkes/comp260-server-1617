@@ -240,7 +240,7 @@ namespace Server
                     {
                         localChatMessage(dungeonResult, player);
                     }
-                    else if (dungeonResult.Substring(0, 8) == "[GLOBAL]")
+                    else if (dungeonResult.Substring(0, 8) == "[GLOBAL]" || dungeonResult.Substring(0, 8) == "[SERVER]")
                     {
                         globalChatMessage(dungeonResult);
                     }
