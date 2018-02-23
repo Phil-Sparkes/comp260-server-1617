@@ -80,7 +80,8 @@ namespace Client
              
                 //Console.Clear();
                 String Msg = Console.ReadLine();
-                if (Msg.Substring(0, 3) != "say")
+                String lowerMsg = Msg.ToLower() +  "      " ;
+                if (lowerMsg.Substring(0, 3) != "say" && lowerMsg.Substring(0, 6) != "global")
                 {
                     Console.Clear();
                 }

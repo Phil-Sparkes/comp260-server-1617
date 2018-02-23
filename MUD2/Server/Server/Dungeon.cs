@@ -89,6 +89,8 @@ namespace Server
                     returnString += "\nCommands are ....\n";
                     returnString += "help - for this screen\n";
                     returnString += "look - to look around\n";
+                    returnString += "say - local chat\n";
+                    returnString += "global - global chat\n";
                     returnString += "go [north | south | east | west]  - to travel between locations\n";
                     returnString += "\nPress any key to continue\n";
                     
@@ -102,8 +104,17 @@ namespace Server
                     return returnString;
 
                 case "say":
-                    //returnString += GiveInfo(player);
-                    returnString += ("[");
+                    returnString += ("[LOCAL][");
+                    returnString += (player.playerName);
+                    returnString += ("] ");
+                    for (var i = 1; i < input.Length; i++)
+                    {
+                        returnString += (input[i] + " ");
+                    }
+
+                    return returnString;
+                case "global":
+                    returnString += ("[GLOBAL][");
                     returnString += (player.playerName);
                     returnString += ("] ");
                     for (var i = 1; i < input.Length; i++)
