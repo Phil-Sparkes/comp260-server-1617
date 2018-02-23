@@ -12,9 +12,11 @@ namespace Server
         public Room currentRoom;
         public String playerName;
         public String clientName;
+        public List<String> Items = new List<string>();
         public void Init()
         {
-            currentRoom = dungeonRef.roomMap["Room 0"];
+           currentRoom = dungeonRef.roomMap["Room 0"];
+           Items.Add("banana");
         }
     }
 }

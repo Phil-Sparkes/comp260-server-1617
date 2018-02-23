@@ -12,6 +12,10 @@ namespace Server
         {
             this.desc = desc;
             this.name = name;
+            item = null;
+            enemy = null;
+            UsefulItem = null;
+            ResultfromItem = null;
         }
 
         public String north
@@ -37,9 +41,12 @@ namespace Server
             set { exits[3] = value; }
         }
 
-
+        public String enemy = "";
+        public String item = "";
         public String name = "";
         public String desc = "";
+        public String UsefulItem = "";
+        public String ResultfromItem = "";
         public String[] exits = new String[4];
         public static String[] exitNames = { "NORTH", "SOUTH", "EAST", "WEST" };
     }

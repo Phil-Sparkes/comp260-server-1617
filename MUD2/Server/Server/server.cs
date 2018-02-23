@@ -19,7 +19,7 @@ namespace Server
 
         static Dictionary<String, Socket> clientDictionary = new Dictionary<String, Socket>();
 
-        static Dungeon dungeon = new Dungeon(); // make the dungeon
+        static Dungeon dungeon = new Dungeon(); 
         class ReceiveThreadLaunchInfo
         {
             public ReceiveThreadLaunchInfo(int ID, Socket socket)
@@ -66,7 +66,6 @@ namespace Server
                     {
                         outgoingMessages.AddLast(clientName + "¬" + dungeonResult);
                     }
-                    //Thread.Sleep(500);
                     ID++;
                 }
             }
@@ -95,6 +94,24 @@ namespace Server
             return null;
         }
 
+        public static bool TradeItem(Player PlayerGive, String PlayerReceive, String Item)
+        {
+            foreach (Player player in PlayerList)
+            {
+                if (player.playerName == PlayerReceive)
+                {
+                    Player otherplayer = player;
+                    if (otherplayer.currentRoom == PlayerGive.currentRoom)
+                    {
+                        otherplayer.Items.Add(Item);
+                        PlayerGive.Items.Remove(Item);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         static void localChatMessage(string message, Player player)
         {
             foreach (Player otherPlayer in PlayerList)
@@ -109,14 +126,13 @@ namespace Server
 
             }
           
-            Console.WriteLine(message);
         }
 
         static void globalChatMessage(string message)
         {
             lock (outgoingMessages)
             {
-                foreach (KeyValuePair<String, Socket> test in clientDictionary)    //new
+                foreach (KeyValuePair<String, Socket> test in clientDictionary)  
                 {
                     outgoingMessages.AddLast(test.Key + "¬" + message);
                 }
@@ -193,7 +209,7 @@ namespace Server
                 {
                     try
                     {
-                        Console.WriteLine("sending message");
+                        
                         String[] substrings = messageToSend.Split('¬');
 
                         string theClient = substrings[0];
@@ -204,6 +220,7 @@ namespace Server
                         int bytesSent = GetSocketFromName(theClient).Send(sendBuffer);
 
                         bytesSent = GetSocketFromName(theClient).Send(sendBuffer); // DO NOT KNOW WHY I HAVE TO DO THIS TWICE BUT ONLY WAY IT WORKS
+                        Console.WriteLine("sending message to " + theClient);
                     }
                     catch
                     {
@@ -225,7 +242,6 @@ namespace Server
 
                     if (labelToPrint != "")
                 {
-                    Console.WriteLine(labelToPrint);
 
                     String[] substrings = labelToPrint.Split('¬');
 
@@ -236,13 +252,23 @@ namespace Server
                     Player player = PlayerList[PlayerID];
                     String theClient = "client" + substrings[0];
 
-                    if (dungeonResult.Substring(0, 7) == "[LOCAL]")
+                    if (dungeonResult.Length > 7)
                     {
-                        localChatMessage(dungeonResult, player);
-                    }
-                    else if (dungeonResult.Substring(0, 8) == "[GLOBAL]" || dungeonResult.Substring(0, 8) == "[SERVER]")
-                    {
-                        globalChatMessage(dungeonResult);
+                        if (dungeonResult.Substring(0, 7) == "[LOCAL]")
+                        {
+                            localChatMessage(dungeonResult, player);
+                        }
+                        else if (dungeonResult.Substring(0, 8) == "[GLOBAL]" || dungeonResult.Substring(0, 8) == "[SERVER]")
+                        {
+                            globalChatMessage(dungeonResult);
+                        }
+                        else
+                        {
+                            lock (outgoingMessages)
+                            {
+                                outgoingMessages.AddLast(theClient + "¬" + dungeonResult);
+                            }
+                        }
                     }
                     else
                     {
@@ -255,17 +281,6 @@ namespace Server
                 }
 
                 Thread.Sleep(1);
-
-                lock (clientDictionary)
-                {
-                    foreach (KeyValuePair<String, Socket> test in clientDictionary)    //new
-                    {
-                        // Console.WriteLine(test.Value);
-                        //byte[] sendbuffer = encoder.getbytes("test"); // this is sending back to client
-
-                        //int bytessent = test.value.send(sendbuffer);
-                    }
-                }
             }
         }
     }
