@@ -96,27 +96,12 @@ namespace Client
 
                 try
                 {
-                    //Console.WriteLine("Writing to server: " + Msg);
                     int bytesSent = s.Send(buffer);
-
-
-                   // buffer = new byte[4096];
-                    //int receiver = s.Receive(buffer);
-                    //s.Receive(buffer);
-                    //if (receiver > 0)
-                    //{
-                    //    String userCmd = encoder.GetString(buffer, 0, receiver);
-                    //    Console.WriteLine(userCmd);
-                    //}
-
-
                 }
                 catch (System.Exception ex)
                 {
                     Console.WriteLine(ex);	
                 }
-
-                //Thread.Sleep(1000);
             }
         }
     }

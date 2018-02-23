@@ -15,7 +15,7 @@ namespace Server
         static LinkedList<String> incommingMessages = new LinkedList<string>();
         static LinkedList<String> outgoingMessages = new LinkedList<string>();
 
-        static List<Player> PlayerList = new List<Player>();
+        public static List<Player> PlayerList = new List<Player>();
 
         static Dictionary<String, Socket> clientDictionary = new Dictionary<String, Socket>();
 

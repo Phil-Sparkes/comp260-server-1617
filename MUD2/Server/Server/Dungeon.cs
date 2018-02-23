@@ -71,6 +71,19 @@ namespace Server
                     info += (Room.exitNames[i] + " ");
                 }
             }
+
+            info += "\nPlayers in room: ";
+
+            foreach (Player otherPlayer in server.PlayerList)
+            {
+                if (player.currentRoom == otherPlayer.currentRoom)
+                {
+                    info += "[";
+                    info += otherPlayer.playerName;
+                    info += "]";
+                }
+            }
+            info += "\n";
             return info;
 
         }
