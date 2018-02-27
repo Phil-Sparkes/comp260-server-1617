@@ -78,7 +78,6 @@ namespace Client
             while (true)
             {
              
-                //Console.Clear();
                 String Msg = Console.ReadLine();
                 String lowerMsg = Msg.ToLower() +  "  " ;
                 if (lowerMsg.Substring(0, 2) == "go")

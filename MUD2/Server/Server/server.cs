@@ -216,10 +216,9 @@ namespace Server
                         string dungeonResult = substrings[1];
 
                         byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
-                        //byte[] sendBuffer = new byte[4096];
                         int bytesSent = GetSocketFromName(theClient).Send(sendBuffer);
 
-                        bytesSent = GetSocketFromName(theClient).Send(sendBuffer); // DO NOT KNOW WHY I HAVE TO DO THIS TWICE BUT ONLY WAY IT WORKS
+                        bytesSent = GetSocketFromName(theClient).Send(sendBuffer); 
                         Console.WriteLine("sending message to " + theClient);
                     }
                     catch

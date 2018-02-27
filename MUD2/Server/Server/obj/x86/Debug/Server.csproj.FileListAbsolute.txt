@@ -27,3 +27,9 @@ C:\Users\Phil\Documents\Uni\Year 2\Comp260\1\comp260-server-1617\MUD2\Server\Ser
 C:\Users\Phil\Documents\Uni\Year 2\Comp260\1\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.csproj.CoreCompileInputs.cache
 C:\Users\Phil\Documents\Uni\Year 2\Comp260\1\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.exe
 C:\Users\Phil\Documents\Uni\Year 2\Comp260\1\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.pdb
+D:\yes\comp260-server-1617\MUD2\Server\Server\bin\Debug\Server.exe
+D:\yes\comp260-server-1617\MUD2\Server\Server\bin\Debug\Server.pdb
+D:\yes\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.csprojResolveAssemblyReference.cache
+D:\yes\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.csproj.CoreCompileInputs.cache
+D:\yes\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.exe
+D:\yes\comp260-server-1617\MUD2\Server\Server\obj\x86\Debug\Server.pdb
