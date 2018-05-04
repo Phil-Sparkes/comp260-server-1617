@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "sql_linux", "sql_linux\sql_linux.csproj", "{078DEAB0-D333-43A6-8521-FC49CDFBA7FB}"
 EndProject
 Global
@@ -13,5 +15,11 @@ Global
 		{078DEAB0-D333-43A6-8521-FC49CDFBA7FB}.Debug|x86.Build.0 = Debug|x86
 		{078DEAB0-D333-43A6-8521-FC49CDFBA7FB}.Release|x86.ActiveCfg = Release|x86
 		{078DEAB0-D333-43A6-8521-FC49CDFBA7FB}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {392B2A72-7837-4E43-B10E-6AD1B3ABB092}
 	EndGlobalSection
 EndGlobal
