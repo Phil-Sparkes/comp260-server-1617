@@ -1,0 +1,35 @@
+G:\Comp260\1\Lecture 01\01. c# sockets\Client\Client\bin\Debug\Client.exe
+G:\Comp260\1\Lecture 01\01. c# sockets\Client\Client\bin\Debug\Client.pdb
+G:\Comp260\1\Lecture 01\01. c# sockets\Client\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
+G:\Comp260\1\Lecture 01\01. c# sockets\Client\Client\obj\x86\Debug\Client.exe
+G:\Comp260\1\Lecture 01\01. c# sockets\Client\Client\obj\x86\Debug\Client.pdb
+G:\Comp260\1\MUD2\Client\Client\bin\Debug\Client.exe
+G:\Comp260\1\MUD2\Client\Client\bin\Debug\Client.pdb
+G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
+G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.exe
+G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.pdb
+G:\Comp260\1\MUD2\Client\Client\obj\x86\Debug\Client.csprojResolveAssemblyReference.cache
+D:\comp260-server-1617\MUD2\Client\Client\bin\Debug\Client.exe
+D:\comp260-server-1617\MUD2\Client\Client\bin\Debug\Client.pdb
+D:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.csprojResolveAssemblyReference.cache
+D:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
+D:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.exe
+D:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.pdb
+E:\comp260-server-1617\MUD2\Client\Client\bin\Debug\Client.exe
+E:\comp260-server-1617\MUD2\Client\Client\bin\Debug\Client.pdb
+E:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.csprojResolveAssemblyReference.cache
+E:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
+E:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.exe
+E:\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.pdb
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\1\comp260-server-1617\MUD2\Client\Client\bin\Debug\Client.exe
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\1\comp260-server-1617\MUD2\Client\Client\bin\Debug\Client.pdb
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\1\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\1\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\1\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.exe
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\1\comp260-server-1617\MUD2\Client\Client\obj\x86\Debug\Client.pdb
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\2\Here\code\sqlite example-2\Client\Client\bin\Debug\Client.exe
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\2\Here\code\sqlite example-2\Client\Client\bin\Debug\Client.pdb
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\2\Here\code\sqlite example-2\Client\Client\obj\x86\Debug\Client.csprojResolveAssemblyReference.cache
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\2\Here\code\sqlite example-2\Client\Client\obj\x86\Debug\Client.csproj.CoreCompileInputs.cache
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\2\Here\code\sqlite example-2\Client\Client\obj\x86\Debug\Client.exe
+C:\Users\Phil\Documents\Uni\Year 2\Comp260\2\Here\code\sqlite example-2\Client\Client\obj\x86\Debug\Client.pdb
