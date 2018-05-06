@@ -2,14 +2,14 @@
   <MonoDevelop.Ide.ItemProperties.sql__linux PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="../../sql_example.cs">
     <Files>
-      <File FileName="../../sql_example.cs" Line="225" Column="21" />
+      <File FileName="../../sql_example.cs" Line="272" Column="34" />
       <File FileName="sql_linux/Dungeon.cs" Line="282" Column="18" />
       <File FileName="sql_linux/Player.cs" Line="32" Column="48" />
       <File FileName="sql_linux/Client.cs" Line="1" Column="1" />
       <File FileName="sql_linux/Room.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|x86" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

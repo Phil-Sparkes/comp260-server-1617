@@ -271,8 +271,21 @@ namespace Server
         }
         static void Main(string[] args)
         {
-            //sqliteConnection.CreateFile(dungeonDatabase);
-            conn.Open();
+            
+            //SqliteConnection.CreateFile(dungeonDatabase);
+            //conn = new SqliteConnection("Data Source=" + dungeonDatabase + ";Version=3;FailIfMissing=True");
+
+            try{
+                conn.Open();
+            }
+            catch (Exception ex)
+            {
+                SqliteConnection.CreateFile(dungeonDatabase);
+                conn = new SqliteConnection("Data Source=" + dungeonDatabase + ";Version=3;FailIfMissing=True");
+                conn.Open();
+            }
+
+
 
             SqliteCommand command;
 
