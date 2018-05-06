@@ -299,8 +299,8 @@ namespace Server
             dungeon.Init(conn);
 
             Socket serverClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-            IPEndPoint ipLocal = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8221);
+            //127.0.0.1
+            IPEndPoint ipLocal = new IPEndPoint(IPAddress.Parse("165.227.227.116"), 8221);
 
             serverClient.Bind(ipLocal);
             serverClient.Listen(4);

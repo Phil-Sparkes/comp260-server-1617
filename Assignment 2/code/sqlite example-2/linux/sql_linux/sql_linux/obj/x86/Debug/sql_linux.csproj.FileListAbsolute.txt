@@ -2,7 +2,6 @@ C:/Users/Phil/Documents/Uni/Year 2/Comp260/2/comp260-server-1617/Assignment 2/co
 C:/Users/Phil/Documents/Uni/Year 2/Comp260/2/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/obj/x86/Debug/sql_linux.csproj.CoreCompileInputs.cache
 /home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/bin/Debug/sql_linux.exe
 /home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/bin/Debug/sql_linux.pdb
-/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/obj/x86/Debug/sql_linux.csprojResolveAssemblyReference.cache
 /home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/obj/x86/Debug/sql_linux.csproj.CoreCompileInputs.cache
 /home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/obj/x86/Debug/sql_linux.exe
 /home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/obj/x86/Debug/sql_linux.pdb
