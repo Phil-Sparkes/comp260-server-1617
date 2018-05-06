@@ -1,0 +1,5 @@
+/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/bin/Release/sql_linux.exe
+/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/bin/Release/sql_linux.pdb
+/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/obj/x86/Release/sql_linux.csproj.CoreCompileInputs.cache
+/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/obj/x86/Release/sql_linux.exe
+/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/linux/sql_linux/sql_linux/obj/x86/Release/sql_linux.pdb

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Mono.Data.Sqlite;
 
 #if TARGET_LINUX
 using Mono.Data.Sqlite;
@@ -22,12 +23,12 @@ namespace Server
 {
     public class Dungeon
     {
-        sqliteConnection conn = null;
+        SqliteConnection conn = null;
         Dictionary<String, Room> roomMap;
 
        // String currentRoom;
 
-        public void Init(sqliteConnection conn)
+        public void Init(SqliteConnection conn)
         {
             roomMap = new Dictionary<string, Room>();
             {
@@ -116,11 +117,11 @@ namespace Server
             try
             {
 
-                sqliteCommand command;
+                SqliteCommand command;
 
                 foreach (var room in roomMap)
                 {
-                    command = new sqliteCommand("select * from table_rooms where name == '" + room.Key + "'", conn);
+                    command = new SqliteCommand("select * from table_rooms where name == '" + room.Key + "'", conn);
                     var reader = command.ExecuteReader();
 
                     if (reader.HasRows == false)
@@ -149,7 +150,7 @@ namespace Server
                             sql += "'" + room.Value.resultFromItem + "'";
                             sql += ")";
 
-                            command = new sqliteCommand(sql, conn);
+                            command = new SqliteCommand(sql, conn);
                             command.ExecuteNonQuery();
                         }
                         catch (Exception ex)
@@ -167,14 +168,14 @@ namespace Server
 
         }
 
-        public String GiveInfo(Client client, sqliteConnection conn)
+        public String GiveInfo(Client client, SqliteConnection conn)
         {
             String CurrentRoom = "";
             String CurrentItems = "";
 
             String info = "";
-            var command = new sqliteCommand();
-            command = new sqliteCommand("select * from table_players where username == '" + client.username + "'", conn);
+            var command = new SqliteCommand();
+            command = new SqliteCommand("select * from table_players where username == '" + client.username + "'", conn);
             var reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -191,7 +192,7 @@ namespace Server
                     Console.WriteLine("Failed to read from DB " + ex);
                 }
             }
-            command = new sqliteCommand("select * from table_rooms where name == '" + CurrentRoom + "'", conn);
+            command = new SqliteCommand("select * from table_rooms where name == '" + CurrentRoom + "'", conn);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -206,7 +207,7 @@ namespace Server
                             info += "\nYou find a " + reader["item"] + " in the room";
                             CurrentItems += "$" + reader["item"];
                             var sql = "update " + "table_players" + " set items ='" + CurrentItems + "' where username = '" + client.username + "'";
-                            command = new sqliteCommand(sql, conn);
+                            command = new SqliteCommand(sql, conn);
                             command.ExecuteNonQuery();
                         }
                     }
@@ -243,7 +244,7 @@ namespace Server
 
             }
             info += "\nPlayers in room: ";
-            command = new sqliteCommand("select * from table_players where currentRoom == '" + CurrentRoom + "'", conn);
+            command = new SqliteCommand("select * from table_players where currentRoom == '" + CurrentRoom + "'", conn);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -254,7 +255,7 @@ namespace Server
 
         }
 
-        public String Process(string Key, Client client, sqliteConnection conn)
+        public String Process(string Key, Client client, SqliteConnection conn)
         {
             String returnString = "";
 
@@ -265,9 +266,9 @@ namespace Server
             String southRoom = "";
             String westRoom = "";
 
-            var command = new sqliteCommand();
+            var command = new SqliteCommand();
 
-            command = new sqliteCommand("select * from table_players where username == '" + client.username + "'", conn);
+            command = new SqliteCommand("select * from table_players where username == '" + client.username + "'", conn);
             var reader = command.ExecuteReader();
             while (reader.Read())
                 try
@@ -288,7 +289,7 @@ namespace Server
             {
                 client.playerItemsList.Add("" + item);
             }
-            command = new sqliteCommand("select * from table_rooms where name == '" + client.currentRoom + "'", conn);
+            command = new SqliteCommand("select * from table_rooms where name == '" + client.currentRoom + "'", conn);
             reader = command.ExecuteReader();
             while (reader.Read())
             {
@@ -354,9 +355,9 @@ namespace Server
                                 itemsUpdateDatabase += "$" + item;
                             }
                             client.currentRoom = resultFromItem;
-                            command = new sqliteCommand("update " + "table_players" + " set currentRoom ='" + client.currentRoom + "' where username = '" + client.username + "'", conn);
+                            command = new SqliteCommand("update " + "table_players" + " set currentRoom ='" + client.currentRoom + "' where username = '" + client.username + "'", conn);
                             command.ExecuteNonQuery();
-                            command = new sqliteCommand("update " + "table_players" + " set items ='" + itemsUpdateDatabase + "' where username = '" + client.username + "'", conn);
+                            command = new SqliteCommand("update " + "table_players" + " set items ='" + itemsUpdateDatabase + "' where username = '" + client.username + "'", conn);
                             command.ExecuteNonQuery();
 
                             returnString += GiveInfo(client, conn);
@@ -453,7 +454,7 @@ namespace Server
                     }
 
                     var sql = "update " + "table_players" + " set currentRoom ='" + client.currentRoom + "' where username = '" + client.username + "'";
-                    command = new sqliteCommand(sql, conn);
+                    command = new SqliteCommand(sql, conn);
                     command.ExecuteNonQuery();
 
                     returnString += GiveInfo(client, conn);

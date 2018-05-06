@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using Mono.Data.Sqlite;
 
 #if TARGET_LINUX
 using Mono.Data.Sqlite;
@@ -28,17 +29,12 @@ namespace Server
         public String currentRoom = "Room 0";
         public String items = "$banana";
                                         
-        public void Init(sqliteConnection conn)
+        public void Init(SqliteConnection conn)
         {
             try
             {
-                //sqliteConnection.CreateFile(dungeonDatabase);
 
-                //conn = new sqliteConnection("Data Source=" + dungeonDatabase + ";Version=3;FailIfMissing=True");
-                //conn.Open();
-
-
-                sqliteCommand command;
+                SqliteCommand command;
 
                 try
                 {
@@ -54,7 +50,7 @@ namespace Server
                     sql += "'" + 1 + "'";
                     sql += ")";
 
-                    command = new sqliteCommand(sql, conn);
+                    command = new SqliteCommand(sql, conn);
                     command.ExecuteNonQuery();
                 }
                 catch (Exception ex)

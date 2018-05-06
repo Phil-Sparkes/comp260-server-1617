@@ -1,0 +1,5 @@
+/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/Client/Client/bin/Release/Client.exe
+/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/Client/Client/bin/Release/Client.pdb
+/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/Client/Client/obj/x86/Release/Client.csproj.CoreCompileInputs.cache
+/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/Client/Client/obj/x86/Release/Client.exe
+/home/sparklar/comp260-server-1617/Assignment 2/code/sqlite example-2/Client/Client/obj/x86/Release/Client.pdb

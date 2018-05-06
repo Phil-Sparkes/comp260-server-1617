@@ -6,6 +6,7 @@ using System.Text;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using Mono.Data.Sqlite;
 
 #if TARGET_LINUX
 using Mono.Data.Sqlite;
@@ -28,7 +29,7 @@ namespace Server
         static bool quit = false;
 
         public static string dungeonDatabase = "data.database";
-        public static sqliteConnection conn = new sqliteConnection("Data Source=" + dungeonDatabase + ";Version=3;FailIfMissing=True");
+        public static SqliteConnection conn = new SqliteConnection("Data Source=" + dungeonDatabase + ";Version=3;FailIfMissing=True");
 
 
         static LinkedList<String> incommingMessages = new LinkedList<string>();
@@ -128,7 +129,7 @@ namespace Server
                             itemsUpdateDatabase += "$" + item;
                         }
                         Console.WriteLine(itemsUpdateDatabase);
-                        var command = new sqliteCommand("update " + "table_players" + " set items ='" + itemsUpdateDatabase + "' where username = '" + ClientGive.username + "'", conn);
+                        var command = new SqliteCommand("update " + "table_players" + " set items ='" + itemsUpdateDatabase + "' where username = '" + ClientGive.username + "'", conn);
                         command.ExecuteNonQuery();
 
                         itemsUpdateDatabase = "";
@@ -137,7 +138,7 @@ namespace Server
                             itemsUpdateDatabase += "$" + item;
                         }
                         Console.WriteLine(itemsUpdateDatabase);
-                        command = new sqliteCommand("update " + "table_players" + " set items ='" + itemsUpdateDatabase + "' where username = '" + otherClient.username + "'", conn);
+                        command = new SqliteCommand("update " + "table_players" + " set items ='" + itemsUpdateDatabase + "' where username = '" + otherClient.username + "'", conn);
                         command.ExecuteNonQuery();
 
                         return true;
@@ -211,7 +212,7 @@ namespace Server
             try
             {
 
-                var command = new sqliteCommand("select * from table_players where username == '" + username + "'", conn);
+                var command = new SqliteCommand("select * from table_players where username == '" + username + "'", conn);
                 var reader = command.ExecuteReader();
                 return reader.HasRows;
             }
@@ -234,7 +235,7 @@ namespace Server
 
         static void checkPassword(Client client, string password)
         {
-            var command = new sqliteCommand("select * from table_players where username == '" + client.username + "'", conn);
+            var command = new SqliteCommand("select * from table_players where username == '" + client.username + "'", conn);
             var reader = command.ExecuteReader();
 
             while (reader.Read())
@@ -251,7 +252,7 @@ namespace Server
                     {
                         Console.WriteLine("password created");
                         var sql = "update " + "table_players" + " set password ='" + password + "' where username = '" + client.username + "'";
-                        command = new sqliteCommand(sql, conn);
+                        command = new SqliteCommand(sql, conn);
                         command.ExecuteNonQuery();
                         client.inputPassword = true;
                         outgoingMessages.AddLast(client.clientName + "¬" + dungeon.GiveInfo(client, conn));
@@ -273,11 +274,11 @@ namespace Server
             //sqliteConnection.CreateFile(dungeonDatabase);
             conn.Open();
 
-            sqliteCommand command;
+            SqliteCommand command;
 
-            command = new sqliteCommand("create table if not exists table_rooms (name varchar(7), desc varchar(40), north varchar(7), east varchar(7), south varchar(7), west varchar(7), enemy varchar(10), item varchar(8), usefulItem varchar(10), resultFromItem varchar(7))", conn);
+            command = new SqliteCommand("create table if not exists table_rooms (name varchar(7), desc varchar(40), north varchar(7), east varchar(7), south varchar(7), west varchar(7), enemy varchar(10), item varchar(8), usefulItem varchar(10), resultFromItem varchar(7))", conn);
             command.ExecuteNonQuery();
-            command = new sqliteCommand("create table if not exists table_players (username varchar(10), password varchar(10), currentRoom varchar(7), items varchar(20), connected int)", conn);
+            command = new SqliteCommand("create table if not exists table_players (username varchar(10), password varchar(10), currentRoom varchar(7), items varchar(20), connected int)", conn);
             command.ExecuteNonQuery();
 
             ASCIIEncoding encoder = new ASCIIEncoding();
