@@ -26,8 +26,6 @@ namespace Server
         SqliteConnection conn = null;
         Dictionary<String, Room> roomMap;
 
-       // String currentRoom;
-
         public void Init(SqliteConnection conn)
         {
             roomMap = new Dictionary<string, Room>();
@@ -124,6 +122,7 @@ namespace Server
                     command = new SqliteCommand("select * from table_rooms where name == '" + room.Key + "'", conn);
                     var reader = command.ExecuteReader();
 
+                    // get data from database
                     if (reader.HasRows == false)
                     {
                         try

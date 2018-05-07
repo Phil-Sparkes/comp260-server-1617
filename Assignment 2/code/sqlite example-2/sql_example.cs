@@ -31,7 +31,6 @@ namespace Server
         public static string dungeonDatabase = "data.database";
         public static SqliteConnection conn = new SqliteConnection("Data Source=" + dungeonDatabase + ";Version=3;FailIfMissing=True");
 
-
         static LinkedList<String> incommingMessages = new LinkedList<string>();
         static LinkedList<String> outgoingMessages = new LinkedList<string>();
 
@@ -271,24 +270,21 @@ namespace Server
         }
         static void Main(string[] args)
         {
-            
-            //SqliteConnection.CreateFile(dungeonDatabase);
-            //conn = new SqliteConnection("Data Source=" + dungeonDatabase + ";Version=3;FailIfMissing=True");
-
             try{
+                // Connect to database
                 conn.Open();
             }
             catch (Exception ex)
             {
+                // create new database and connect
                 SqliteConnection.CreateFile(dungeonDatabase);
                 conn = new SqliteConnection("Data Source=" + dungeonDatabase + ";Version=3;FailIfMissing=True");
                 conn.Open();
             }
 
-
-
             SqliteCommand command;
 
+            // create tables
             command = new SqliteCommand("create table if not exists table_rooms (name varchar(7), desc varchar(40), north varchar(7), east varchar(7), south varchar(7), west varchar(7), enemy varchar(10), item varchar(8), usefulItem varchar(10), resultFromItem varchar(7))", conn);
             command.ExecuteNonQuery();
             command = new SqliteCommand("create table if not exists table_players (username varchar(10), password varchar(10), currentRoom varchar(7), items varchar(20), connected int)", conn);
@@ -299,7 +295,7 @@ namespace Server
             dungeon.Init(conn);
 
             Socket serverClient = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            //127.0.0.1
+            //local host 127.0.0.1
             IPEndPoint ipLocal = new IPEndPoint(IPAddress.Parse("165.227.227.116"), 8221);
 
             serverClient.Bind(ipLocal);
@@ -316,7 +312,8 @@ namespace Server
             while (true)
             {
                 String messageToSend = "";
-
+                
+                // process outgoing messages
                 lock (outgoingMessages)
                 {
                     if (outgoingMessages.First != null)
@@ -340,7 +337,7 @@ namespace Server
                         string dungeonResult = substrings[1];
 
                         byte[] sendBuffer = encoder.GetBytes(dungeonResult); // this is sending back to client
-                        //byte[] sendBuffer = new byte[4096];
+
                         int bytesSent = GetSocketFromName(theClient).Send(sendBuffer);
 
                         bytesSent = GetSocketFromName(theClient).Send(sendBuffer); // DO NOT KNOW WHY I HAVE TO DO THIS TWICE BUT ONLY WAY IT WORKS
@@ -353,6 +350,8 @@ namespace Server
                 }
 
                 String labelToPrint = "";
+
+                // process incoming messages
                 lock (incommingMessages)
                 {
                     if (incommingMessages.First != null)
@@ -374,6 +373,7 @@ namespace Server
                     
                     var theClient = clientList[ClientID];
 
+                    // get username from client
                     if (theClient.inputUsername == false)
                     {
                         theClient.username = clientMessage;
@@ -390,15 +390,18 @@ namespace Server
                             theClient.inputUsername = true;
                         }
                     }
+                    // get password from client
                     else if (theClient.inputPassword == false)
                     {
                         checkPassword(theClient, clientMessage);
                     }
                     else
                     {
+                        // process the dungeon
                         var dungeonResult = dungeon.Process(clientMessage, theClient, conn);
                         Console.WriteLine(dungeonResult);
 
+                        // check for local and global commands
                         if (dungeonResult.Length > 7)
                         {
                             if (dungeonResult.Substring(0, 7) == "[LOCAL]")

@@ -50,7 +50,7 @@ namespace Client
         {
             Socket s = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            IPEndPoint ipLocal = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8221);
+            IPEndPoint ipLocal = new IPEndPoint(IPAddress.Parse("165.227.227.116"), 8221);
 
 			bool connected = false;
 
